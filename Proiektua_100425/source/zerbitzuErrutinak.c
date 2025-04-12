@@ -12,8 +12,8 @@ periferikoak.c
 #include "spriteak.h"
 
 int EGOERA; // Automata zein egoeratan dagoen adierazteko erabilia
-int seg3;   // Hiru segundo pasatzen ote diren ikusten joateko
-int seg5;
+int seg2;
+int seg20;
 bool konBarra1;
 bool konBarra2;
 bool konBarra3;
@@ -58,6 +58,7 @@ int max4 = 194;
 
 int bezabiadura = 3;
 int garaabiadura = 10;
+int puntuak = 0;
 
 
 
@@ -84,7 +85,7 @@ void tekEten () {
 			garaBete(BARRA3, &bez3, &gara3, max3, &konprobatu3, 104, 3);
 			garaBete(BARRA4, &bez4, &gara4, max4, &konprobatu4, 143, 4);
 		} else {
-			iprintf("\x1b[8;2HEz dago inor Barra honetan");
+			iprintf("\x1b[12;2HEz dago inor Barra honetan");
 		}
 
 	}
@@ -92,7 +93,6 @@ void tekEten () {
 }
 
 void tenpEten() {
-
 	IME=0;
 	static int tik=0;
 	static int seg=0;
@@ -101,30 +101,36 @@ void tenpEten() {
 		tik++; 
 		if (tik==30) {
 			seg++;
-			iprintf("\x1b[22;2H                        ");
-			iprintf("\x1b[22;2HPasa diren segunduak=%d", seg);
+			iprintf("\x1b[22;2H                         ");
+			iprintf("\x1b[22;2HPasa diren segunduak: %d", seg);
 			tik=0;
-			seg5++;
-			if (seg5==2) {
-				seg5=0;
-				//5 segundura bezeroa gehitu
-                switch (rand() % 4) {
-                    case 0:
-                        bezeroaGehitu(&bez1, 70);
-                        break;
-                    case 1:
-                        bezeroaGehitu(&bez2, 54);
-                        break;
-                    case 2:
-                        bezeroaGehitu(&bez3, 38);
-                        break;
-                    case 3:
-                        bezeroaGehitu(&bez4, 22);
-                        break;
-                }
+			seg2++;
+			seg20++;
+			if (seg2==2) {
+				seg2=0;
+				switch (rand() % 4) {
+					case 0:
+						bezeroaGehitu(&bez1, 70);
+						break;
+					case 1:
+						bezeroaGehitu(&bez2, 54);
+						break;
+					case 2:
+						bezeroaGehitu(&bez3, 38);
+						break;
+					case 3:
+						bezeroaGehitu(&bez4, 22);
+						break;
+				}
+			}
+			if (seg20==20) {
+				seg20=0;
+				bezabiadura++;
+				garaabiadura++;
 			}
 		}
-		if (tik % 5 == 0) {
+	
+		if (tik % 3 == 0) {
 			//Segunduro bezeroa mugitu
 			bezeroaMugitu(&bez1, max1, 5, 28);
 			bezeroaMugitu(&bez2, max2, 6, 66);
@@ -139,14 +145,6 @@ void tenpEten() {
 			
 		}
 	}
-
-    if (EGOERA == GAMEOVER) {
-        reseteatuJokoa();
-		consoleClear();
-		iprintf("\x1b[11;2HGame Over");
-		iprintf("\x1b[12;2HTekla sakatu L hasierarako edo R bukatzeko");
-    }
-
 	IME=1;
 }
 
@@ -164,8 +162,9 @@ void garaBete(int barra_egoera, struct perts *bez, struct gara *gara, int max_po
     if (EGOERA == barra_egoera && bez->barra && !*konprobatu) {
         gara->beteta = true;
         gara->pos = max_pos;
+		gara->barra = true;
         ErakutsiErronboa(sprite_zbk, gara->pos, y_ard); //garagardoa erakutsi
-        iprintf("\x1b[8;2HBarra%d garagardoa prest", sprite_zbk);
+        iprintf("\x1b[12;2HBarra%d garagardoa prest", sprite_zbk);
     }
 }
 
@@ -183,6 +182,13 @@ void bezeroaMugitu(struct perts *bez, int max_pos, int sprite_zbk, int y_ard) {
             ErakutsiErronboa(sprite_zbk, bez->pos, y_ard); //bezeroa erakutsi
         } else {
             EGOERA = GAMEOVER;
+			erakutsigameover();
+			consoleClear();
+			iprintf("\x1b[3;10HGAME OVER");
+			iprintf("\x1b[10;2HLortutako puntuazioa: %d", puntuak);
+			iprintf("\x1b[12;2HSakatu L tekla hasierarako");
+			iprintf("\x1b[13;2HSakatu R tekla bukatzeko");
+			reseteatuJokoa();
         }
     }
 }
@@ -195,6 +201,7 @@ void desagertzekoKonprobapena(struct perts *bez, struct gara *gara, bool *konpro
             EzabatuErronboa(sprite_zbk, gara->pos, kokapena); //garagardoa ezabatu
             EzabatuErronboa(sprite_zbk + 4, bez->pos, kokapena); //bezeroa ezabatu
             *konprobatu = false;
+			puntuak += 10;
         } else {
             gara->pos -= garaabiadura;
             ErakutsiErronboa(sprite_zbk, gara->pos, kokapena); //garagardoa erakutsi
@@ -246,7 +253,10 @@ void reseteatuJokoa() {
     konprobatu2 = false;
     konprobatu3 = false;
     konprobatu4 = false;
-}
+
+	bezabiadura = 3;
+	garaabiadura = 10;
+	puntuak = 0;}
 
 void etenZerbErrutEzarri() {	
 	irqSet(IRQ_TIMER0, tenpEten);

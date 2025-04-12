@@ -1,0 +1,1 @@
+hasierapantaila.o: hasierapantaila.s

@@ -21,56 +21,58 @@ automatikoki sortzen dira, konpilatzerako garaian, baina horretarako gogoratu be
 #include "Barra2.h"
 #include "Barra3.h"
 #include "Barra4.h"
+#include "gameover.h"
+#include "hasierapantaila.h"
+#include "pausapantaila.h"
 
 /* Irudiak memorian kopiatzeko DMA kanala aukeratu (3.a) */
 static const int DMA_CHANNEL = 3;
 
 /* Pantailaratu nahi den grafiko bakoitzerako horrelako prozedura bat idatzi behar da */
 
-void erakutsiAtea() {
-	
-	dmaCopyHalfWords(DMA_CHANNEL,
-                     AteaBitmap, // Automatikoki sortzen den aldagaia
-                     (uint16 *)BG_BMP_RAM(0), // Fondo nagusiaren helbidea
-                     AteaBitmapLen); // Luzera (bytetan); automatikoki sortzen den aldagaia
-}
-
-void erakutsiAteaIrekita() {
-		
-    dmaCopyHalfWords(DMA_CHANNEL,
-                     AteaIrekitaBitmap, // Automatikoki sortzen den aldagaia
-                     (uint16 *)BG_BMP_RAM(0), // Fondo nagusiaren helbidea
-                     AteaIrekitaBitmapLen); // Luzera (bytetan); automatikoki sortzen den aldagaia
-}
-
 
 void erakutsiBarra1() {
-		
     dmaCopyHalfWords(DMA_CHANNEL,
                      Barra1Bitmap, // Automatikoki sortzen den aldagaia
                      (uint16 *)BG_BMP_RAM(0), // Fondo nagusiaren helbidea
                      Barra1BitmapLen); // Luzera (bytetan); automatikoki sortzen den aldagaia
 }
 void erakutsiBarra2() {
-		
     dmaCopyHalfWords(DMA_CHANNEL,
                      Barra2Bitmap, // Automatikoki sortzen den aldagaia
                      (uint16 *)BG_BMP_RAM(0), // Fondo nagusiaren helbidea
                      Barra2BitmapLen); // Luzera (bytetan); automatikoki sortzen den aldagaia
 }
 void erakutsiBarra3() {
-		
     dmaCopyHalfWords(DMA_CHANNEL,
                      Barra3Bitmap, // Automatikoki sortzen den aldagaia
                      (uint16 *)BG_BMP_RAM(0), // Fondo nagusiaren helbidea
                      Barra3BitmapLen); // Luzera (bytetan); automatikoki sortzen den aldagaia
 }
 void erakutsiBarra4() {
-		
     dmaCopyHalfWords(DMA_CHANNEL,
                      Barra4Bitmap, // Automatikoki sortzen den aldagaia
                      (uint16 *)BG_BMP_RAM(0), // Fondo nagusiaren helbidea
                      Barra4BitmapLen); // Luzera (bytetan); automatikoki sortzen den aldagaia
+}
+void erakutsihasierapantaila() {
+    dmaCopyHalfWords(DMA_CHANNEL,
+                     hasierapantailaBitmap, // Automatikoki sortzen den aldagaia
+                     (uint16 *)BG_BMP_RAM(0), // Fondo nagusiaren helbidea
+                     hasierapantailaBitmapLen); // Luzera (bytetan); automatikoki sortzen den aldagaia
+}
+void erakutsipausapantaila() {
+    dmaCopyHalfWords(DMA_CHANNEL,
+                     pausapantailaBitmap, // Automatikoki sortzen den aldagaia
+                     (uint16 *)BG_BMP_RAM(0), // Fondo nagusiaren helbidea
+                     pausapantailaBitmapLen); // Luzera (bytetan); automatikoki sortzen den aldagaia
+}
+
+void erakutsigameover() {
+    dmaCopyHalfWords(DMA_CHANNEL,
+                     gameoverBitmap, // Automatikoki sortzen den aldagaia
+                     (uint16 *)BG_BMP_RAM(0), // Fondo nagusiaren helbidea
+                     gameoverBitmapLen); // Luzera (bytetan); automatikoki sortzen den aldagaia
 }
 
 

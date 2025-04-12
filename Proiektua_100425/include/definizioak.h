@@ -52,6 +52,7 @@ touchPosition PANT_DAT;
 #define BARRA4  	4
 #define GAMEOVER  	5
 #define BUKAERA		6
+#define PAUSA		7
 
 
 extern int EGOERA;

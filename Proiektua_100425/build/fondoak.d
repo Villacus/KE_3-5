@@ -54,7 +54,10 @@ fondoak.o: /home/user/SharedFiles/Proiektua_100425/source/fondoak.c \
   /home/user/SharedFiles/Proiektua_100425/build/Barra1.h \
   /home/user/SharedFiles/Proiektua_100425/build/Barra2.h \
   /home/user/SharedFiles/Proiektua_100425/build/Barra3.h \
-  /home/user/SharedFiles/Proiektua_100425/build/Barra4.h
+  /home/user/SharedFiles/Proiektua_100425/build/Barra4.h \
+  /home/user/SharedFiles/Proiektua_100425/build/gameover.h \
+  /home/user/SharedFiles/Proiektua_100425/build/hasierapantaila.h \
+  /home/user/SharedFiles/Proiektua_100425/build/pausapantaila.h
 
 /opt/devkitPro/libnds/include/nds.h:
 
@@ -167,3 +170,9 @@ fondoak.o: /home/user/SharedFiles/Proiektua_100425/source/fondoak.c \
 /home/user/SharedFiles/Proiektua_100425/build/Barra3.h:
 
 /home/user/SharedFiles/Proiektua_100425/build/Barra4.h:
+
+/home/user/SharedFiles/Proiektua_100425/build/gameover.h:
+
+/home/user/SharedFiles/Proiektua_100425/build/hasierapantaila.h:
+
+/home/user/SharedFiles/Proiektua_100425/build/pausapantaila.h:

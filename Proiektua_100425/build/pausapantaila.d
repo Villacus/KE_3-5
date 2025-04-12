@@ -1,0 +1,1 @@
+pausapantaila.o: pausapantaila.s

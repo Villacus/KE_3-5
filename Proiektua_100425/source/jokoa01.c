@@ -20,7 +20,7 @@ int denb; // denbora neurtzen joateko; baloratu ea beharrezkoa den
 
 void jokoa01() {	
 	int tekla;
-
+	int temp;
 	EGOERA=HASIERA;
 
 	hasieraPantaila();
@@ -37,8 +37,10 @@ void jokoa01() {
 	while (1) {
 		if (TeklaDetektatu()) {
 			tekla = SakatutakoTekla();
+			/*
 			iprintf("\x1b[16;2HTekla sakatu da. Balioa=%d", tekla);
 			iprintf("\x1b[15;2HEgoera=%d", EGOERA);
+			*/
 			if (EGOERA == GAMEOVER) {
 				if (tekla == L) {
 					EGOERA = HASIERA;
@@ -48,8 +50,8 @@ void jokoa01() {
 				}
 			}
 		}
-		if (EGOERA == HASIERA) {
-			if (ukimenUkitua()) {
+		if (EGOERA != GAMEOVER && ukimenUkitua()) {
+			if (EGOERA == HASIERA) {
 				erakutsiBarra1();
 				jokoaPantaila();
 				EGOERA = BARRA1;
@@ -83,9 +85,9 @@ void PantailaAldatu() {
 
 void hasieraPantaila() {
 	consoleClear();
-	erakutsiAtea();
-	iprintf("\x1b[3;5HROOT BEER TAPPER II");
-	iprintf("\x1b[8;2HPantaila ikutu jokoa hasteko");
+	erakutsihasierapantaila();
+	iprintf("\x1b[3;7HROOT BEER TAPPER II");
+	iprintf("\x1b[10;2HPantaila ikutu jokoa hasteko");
 }
 void jokoaPantaila() {
 	consoleClear();
